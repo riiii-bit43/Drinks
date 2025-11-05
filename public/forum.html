@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum | Retro Sip Café</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <!-- CRITICAL: Load Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        /* Apply custom fonts defined in style.css */
+        .font-pixel { font-family: 'Press Start 2P', cursive; }
+        .font-quicksand { font-family: 'Quicksand', sans-serif; }
+    </style>
+</head>
+<body class="bg-pink-50 min-h-screen flex flex-col">
+    <custom-navbar></custom-navbar>
+
+    <main class="flex-grow container mx-auto px-4 py-8 flex gap-8">
+        <!-- Sidebar Component -->
+        <custom-sidebar></custom-sidebar>
+
+        <!-- Forum Content -->
+        <section class="flex-1 max-w-4xl">
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-pixel text-purple-600 mb-8">FORUM</h1>
+            
+            <!-- Post Message Form (Visibility controlled by JS checkLoginStatus) -->
+            <div class="bg-pink-100 rounded-lg p-6 shadow-lg mb-8" id="postFormSection">
+                <h2 class="font-pixel text-xl text-purple-700 mb-4">Post a New Memory</h2>
+                <form id="postForm" class="space-y-4">
+                    <div>
+                        <input type="text" id="username" placeholder="Your Retro Handle (Username)" required
+                               class="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-black focus:outline-none font-quicksand">
+                    </div>
+                    <div>
+                        <textarea id="message" rows="4" placeholder="Share your message or memory..." required
+                                  class="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-black focus:outline-none font-quicksand"></textarea>
+                    </div>
+                    <button type="submit" class="bg-purple-600 text-white font-pixel px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors shadow-md">
+                        POST MESSAGE
+                    </button>
+                </form>
+            </div>
+
+            <!-- Messages Display Container -->
+            <div id="messagesContainer" class="space-y-6">
+                <!-- Messages will be rendered here by JavaScript -->
+            </div>
+        </section>
+
+    </main>
+
+    <custom-footer></custom-footer>
+
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <!-- <script src="components/sidebar.js"></script> -->
+    <script src="script.js"></script>
+    <script>
+feather.replace();
+
+// ✅ Supabase initialization
+const { createClient } = supabase;
+const client = createClient(
+  'https://ubqwiuybjgffeszclegc.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVicXdpdXliamdmZmVzemNsZWdjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEzMDk3MDYsImV4cCI6MjA3Njg4NTcwNn0.Z6RXO47KVmD3cIZuJgXAnME1xIVZ8Dj8iy3CqPJEVg0'
+);
+
+const postFormDiv = document.querySelector('.bg-pink-100.rounded-lg.p-6.shadow-lg.mb-8');
+const messagesContainer = document.getElementById('messagesContainer');
+const form = document.getElementById('postForm');
+
+// ✅ Function to check login status and update UI
+async function checkLoginStatus() {
+    const { data: { user } } = await client.auth.getUser(); // ✅ changed supabase → client
+
+    if (user) {
+        postFormDiv.style.display = 'block';
+    } else {
+        postFormDiv.style.display = 'none';
+        const loginPrompt = document.createElement('div');
+        loginPrompt.className = 'bg-red-100 p-6 rounded-lg shadow-lg text-center';
+        loginPrompt.innerHTML = `
+            <h2 class="font-pixel text-xl text-red-600 mb-4">LOGIN REQUIRED</h2>
+            <p class="font-quicksand text-gray-700 mb-4">Please sign in to share your thoughts with the community!</p>
+            <a href="auth.html" class="bg-purple-600 text-white font-pixel px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors shadow-md">
+                SIGN IN
+            </a>
+        `;
+        if (!document.getElementById('login-prompt-message')) {
+            loginPrompt.id = 'login-prompt-message';
+            messagesContainer.prepend(loginPrompt);
+        }
+    }
+}
+
+// ✅ Get messages from database
+async function getMessages() {
+    const { data, error } = await client  // ✅ changed supabase → client
+        .from('forum_messages')
+        .select('*')
+        .order('created_at', { ascending: false });
+    
+    if (error) console.error('Error fetching messages:', error);
+    else renderMessages(data);
+}
+
+function renderMessages(messages) {
+    messagesContainer.innerHTML = '';
+    messages.forEach(msg => {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'bg-white rounded-lg p-6 shadow-lg';
+        messageDiv.innerHTML = `
+            <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-full bg-pink-200 flex items-center justify-center overflow-hidden">
+                    <i data-feather="user" class="text-purple-600"></i>
+                </div>
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 mb-2">
+                        <h3 class="font-pixel text-lg text-purple-700">${msg.username || 'Anonymous'}</h3>
+                        <span class="text-xs text-gray-500">${new Date(msg.created_at).toLocaleString()}</span>
+                    </div>
+                    <p class="font-quicksand text-gray-700">${msg.message}</p>
+                </div>
+            </div>
+        `;
+        messagesContainer.appendChild(messageDiv);
+    });
+}
+
+// ✅ Post new message listener
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const { data: { user } } = await client.auth.getUser(); // ✅ changed supabase → client
+    if (!user) {
+        alert('Posting failed: You must be logged in.');
+        window.location.href = 'auth.html';
+        return;
+    }
+
+    const username = document.getElementById('username').value;
+    const message = document.getElementById('message').value;
+
+    const { error } = await client  // ✅ changed supabase → client
+        .from('forum_messages')
+        .insert([{ username, message, user_id: user.id }]);
+
+    if (error) {
+        console.error('Error posting message:', error);
+        alert('Error posting message. Check console.');
+    } else {
+        document.getElementById('message').value = '';
+        getMessages();
+    }
+});
+
+// Initial calls when page loads
+checkLoginStatus();
+getMessages();
+</script>

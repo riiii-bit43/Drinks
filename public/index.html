@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro Sip Café</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Quicksand:wght@300;400;500;600;700&display=swap');
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'custom-pink-gradient-start': '#E85BFF',
+                        'custom-pink-gradient-end': '#8A00FF',
+                    },
+                    backgroundImage: {
+                        'purple-pink-gradient': 'linear-gradient(90deg, #E85BFF 0%, #8A00FF 100%)',
+                        'purple-text-gradient': 'linear-gradient(90deg, #8A00FF 0%, #E85BFF 100%)',
+                        'blue-text-gradient': 'linear-gradient(90deg, #00C3FF 0%, #006EFF 100%)',
+                        'green-text-gradient': 'linear-gradient(90deg, #00FF38 0%, #16FF00 100%)',
+                        'drinks-menu-gradient': 'linear-gradient(90deg, #E85BFF 0%, #00FFFF 50%, #8A00FF 100%)',
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-pink-50 min-h-screen flex flex-col">
+    <custom-navbar></custom-navbar>
+
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-pixel text-center mb-12 text-drinks-menu bg-clip-text text-transparent bg-drinks-menu-gradient">DRINKS MENU</h1>
+        
+        <p class="font-quicksand text-gray-700 text-center mb-16">Crafted with nostalgia and served with love - our signature pixel-perfect beverages</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <div class="p-1 rounded-2xl retro-card-border" style="background: linear-gradient(135deg, #FF6F91, #FF994F);">
+                <div class="bg-white rounded-xl p-6 h-full flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center mb-4">
+                            <div class="w-14 h-14 p-2 mr-4 flex items-center justify-center rounded-xl" style="background-color: #F8C3FF;">
+                                <img src="https://huggingface.co/spaces/meghaiiiiiiiiii/retro-sip-pixel-bliss-caf/resolve/main/images/Rectangle.png" alt="Sunrise Mocktail" class="w-10 h-10 object-contain">
+                            </div>
+                            <h2 class="font-quicksand text-3xl font-bold bg-clip-text text-transparent bg-purple-text-gradient">Sunrise Mocktail</h2>
+                        </div>
+                        <p class="font-quicksand text-gray-700 mb-6 text-sm">A lively mix of sweet and sour — bright, playful, and unforgettable. Every sip is a surprise: sometimes zesty, sometimes sweet, always bursting with color.</p>
+                    </div>
+                    <div class="flex justify-between items-center mt-auto">
+                        <span class="font-quicksand font-bold text-lg bg-clip-text text-transparent bg-purple-text-gradient">Mari's Special</span>
+                        <a href="order1.html" class="px-5 py-2 font-pixel text-xs rounded-lg text-white shadow-lg bg-purple-pink-gradient hover:opacity-90 transition-opacity">ORDER NOW</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-1 rounded-2xl retro-card-border" style="background: linear-gradient(135deg, #00A3FF, #006EFF);">
+                <div class="bg-white rounded-xl p-6 h-full flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center mb-4">
+                            <div class="w-14 h-14 p-2 mr-4 flex items-center justify-center rounded-xl" style="background-color: #C3E7FF;">
+                                <img src="https://huggingface.co/spaces/meghaiiiiiiiiii/retro-sip-pixel-bliss-caf/resolve/main/images/4%201.png" alt="Espresso Shot" class="w-10 h-10 object-contain">
+                            </div>
+                            <h2 class="font-quicksand text-3xl font-bold bg-clip-text text-transparent bg-blue-text-gradient">Espresso Shot</h2>
+                        </div>
+                        <p class="font-quicksand text-gray-700 mb-6 text-sm">A bold, unapologetic brew that hits with intensity. No sugar needed — just pure energy, confidence, and focus. Best for late-night talks and deep debates.</p>
+                    </div>
+                    <div class="flex justify-between items-center mt-auto">
+                        <span class="font-quicksand font-bold text-lg bg-clip-text text-transparent bg-blue-text-gradient">Magie's Boost</span>
+                        <a href="order2.html" class="px-5 py-2 font-pixel text-xs rounded-lg text-white shadow-lg bg-purple-pink-gradient hover:opacity-90 transition-opacity">ORDER NOW</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-1 rounded-2xl retro-card-border" style="background: linear-gradient(135deg, #8CFF95, #00FF38);">
+                <div class="bg-white rounded-xl p-6 h-full flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center mb-4">
+                            <div class="w-14 h-14 p-2 mr-4 flex items-center justify-center rounded-xl" style="background-color: #C3FFE7;">
+                                <img src="https://huggingface.co/spaces/meghaiiiiiiiiii/retro-sip-pixel-bliss-caf/resolve/main/images/4%202.png" alt="Sparkling Lime" class="w-10 h-10 object-contain">
+                            </div>
+                            <h2 class="font-quicksand text-3xl font-bold bg-clip-text text-transparent bg-green-text-gradient">Sparkling Lime</h2>
+                        </div>
+                        <p class="font-quicksand text-gray-700 mb-6 text-sm">Light, refreshing, and full of sparkle. The kind of drink that lifts moods and cools down worries. Best paired with sunshine and good vibes.</p>
+                    </div>
+                    <div class="flex justify-between items-center mt-auto">
+                        <span class="font-quicksand font-bold text-lg bg-clip-text text-transparent bg-green-text-gradient">Kummu's Chill</span>
+                        <a href="order3.html" class="px-5 py-2 font-pixel text-xs rounded-lg text-white shadow-lg bg-purple-pink-gradient hover:opacity-90 transition-opacity">ORDER NOW</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mb-12">
+            <h2 class="font-quicksand text-2xl md:text-3xl italic text-purple-500 mb-8">"Have a sip of warmth, brewed straight from our hearts"</h2>
+            <div class="aspect-w-16 aspect-h-9 bg-purple-200 rounded-lg overflow-hidden">
+                <div class="w-full h-64 md:h-96 flex items-center justify-center">
+                    <i data-feather="video" class="text-purple-600" width="64" height="64"></i>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <custom-footer></custom-footer>
+
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="script.js"></script>
+    <script>
+        feather.replace();
+    </script>
+<script src="https://huggingface.co/deepsite/deepsite-badge.js"></script>
+</body>
+</html>

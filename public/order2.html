@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro Sip Café - Your Letter</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Quicksand:wght@300;400;500;600;700&display=swap');
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'custom-pink-gradient-start': '#E85BFF',
+                        'custom-pink-gradient-end': '#8A00FF',
+                    },
+                    backgroundImage: {
+                        'purple-pink-gradient': 'linear-gradient(90deg, #E85BFF 0%, #8A00FF 100%)',
+                        'purple-text-gradient': 'linear-gradient(90deg, #8A00FF 0%, #E85BFF 100%)',
+                        'drinks-menu-gradient': 'linear-gradient(90deg, #E85BFF 0%, #00FFFF 50%, #8A00FF 100%)',
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-pink-50 min-h-screen flex flex-col">
+    <custom-navbar></custom-navbar>
+
+    <main class="flex-grow container mx-auto px-4 py-16 flex justify-center items-start">
+        <div class="w-full max-w-2xl p-1 rounded-2xl retro-card-border" style="background: linear-gradient(135deg, #00FFFF, #8A00FF);">
+            <div class="bg-white rounded-xl p-8 shadow-2xl h-full flex flex-col items-center text-center">
+                
+                <h1 class="font-pixel text-4xl mb-6 bg-clip-text text-transparent bg-drinks-menu-gradient">
+                    Letter for you
+                </h1>
+                
+                <div class="mb-8">
+                    <img src="https://huggingface.co/spaces/meghaiiiiiiiiii/retro-sip-pixel-bliss-caf/resolve/main/images/8%201.png" alt="Letter Icon" class="w-20 h-20 object-contain mx-auto">
+                </div>
+                
+                <p class="font-quicksand text-gray-700 text-lg leading-relaxed mb-8">
+                    **Dear Friend,**<br><br>
+                    This special order unlocked a secret message! In a world of fleeting trends, remember the joy of creation. We're so grateful you stopped by the Retro Sip Café. May your code be clean, your colors vibrant, and your inspiration endless. Always keep that pixel-perfect passion burning bright.<br><br>
+                    — The Retro Sip Team
+                </p>
+
+                <a href="index.html" class="px-8 py-3 font-pixel text-sm rounded-lg text-white shadow-lg bg-purple-pink-gradient hover:opacity-90 transition-opacity mt-4">
+                    Back to Menu
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <custom-footer></custom-footer>
+
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="script.js"></script>
+    <script>
+        feather.replace();
+    </script>
+<script src="https://huggingface.co/deepsite/deepsite-badge.js"></script>
+</body>
+</html>

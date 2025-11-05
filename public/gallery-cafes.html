@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafes | Retro Sip Café</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Quicksand:wght@300;400;500;600;700&display=swap');
+        .masonry {
+            column-count: 3;
+            column-gap: 1rem;
+        }
+        @media (max-width: 768px) {
+            .masonry {
+                column-count: 2;
+            }
+        }
+        @media (max-width: 480px) {
+            .masonry {
+                column-count: 1;
+            }
+        }
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-pink-50 min-h-screen flex flex-col">
+    <custom-navbar></custom-navbar>
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <div class="flex items-center mb-6">
+            <a href="gallery.html" class="text-green-600 hover:text-green-800 mr-4">
+                <i data-feather="arrow-left" class="w-8 h-8"></i>
+            </a>
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-pixel text-center mb-12 text-green-600">CAFES</h1>
+        </div>
+<div class="masonry">
+            <div class="masonry-item">
+                <img src="http://static.photos/food/640x360/31" alt="Cafe 1" class="w-full rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+            </div>
+            <div class="masonry-item">
+                <img src="http://static.photos/food/640x480/32" alt="Cafe 2" class="w-full rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+            </div>
+            <div class="masonry-item">
+                <img src="http://static.photos/food/480x640/33" alt="Cafe 3" class="w-full rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+            </div>
+            <div class="masonry-item">
+                <img src="http://static.photos/food/640x360/34" alt="Cafe 4" class="w-full rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+            </div>
+            <div class="masonry-item">
+                <img src="http://static.photos/food/480x640/35" alt="Cafe 5" class="w-full rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+            </div>
+            <div class="masonry-item">
+                <img src="http://static.photos/food/640x480/36" alt="Cafe 6" class="w-full rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+            </div>
+            <div class="masonry-item">
+                <img src="http://static.photos/food/640x360/37" alt="Cafe 7" class="w-full rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+            </div>
+            <div class="masonry-item">
+                <img src="http://static.photos/food/480x640/38" alt="Cafe 8" class="w-full rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+            </div>
+        </div>
+
+        <div class="text-center mt-16">
+            <h2 class="font-quicksand text-2xl md:text-3xl italic text-green-500">"Our favorite spots for coffee and conversation"</h2>
+        </div>
+    </main>
+
+    <custom-footer></custom-footer>
+
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="script.js"></script>
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | Retro Sip Café</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Quicksand:wght@300;400;500;600;700&display=swap');
+    </style>
+</head>
+<body class="bg-pink-50 min-h-screen flex flex-col">
+    <custom-navbar></custom-navbar>
+
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-pixel text-center mb-12 text-purple-600">MEMORY GALLERY</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Outings Card -->
+            <a href="gallery-outings.html" class="gallery-link">
+            <div class="bg-pink-100 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                <img src="http://static.photos/travel/640x360/1" alt="Outings" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h2 class="font-pixel text-2xl text-purple-700 mb-4">OUTINGS</h2>
+                    <p class="font-quicksand text-gray-700">Our adventures beyond the café walls</p>
+                </div>
+            </div>
+            </a>
+
+            <!-- Fun Card -->
+            <a href="gallery-fun.html" class="gallery-link">
+            <div class="bg-blue-100 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                <img src="http://static.photos/people/640x360/2" alt="Fun" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h2 class="font-pixel text-2xl text-blue-700 mb-4">FUN</h2>
+                    <p class="font-quicksand text-gray-700">Laughter-filled moments and spontaneous joy</p>
+                </div>
+            </div>
+            </a>
+
+            <!-- Cafes Card -->
+            <a href="gallery-cafes.html" class="gallery-link">
+            <div class="bg-green-100 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                <img src="http://static.photos/food/640x360/3" alt="Cafes" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h2 class="font-pixel text-2xl text-green-700 mb-4">CAFES</h2>
+                    <p class="font-quicksand text-gray-700">Our favorite spots for coffee and conversation</p>
+                </div>
+            </div>
+            </a>
+
+            <!-- Birthdays Card -->
+            <a href="gallery-birthdays.html" class="gallery-link">
+            <div class="bg-yellow-100 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                <img src="http://static.photos/holiday/640x360/4" alt="Birthdays" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h2 class="font-pixel text-2xl text-yellow-700 mb-4">BIRTHDAYS</h2>
+                    <p class="font-quicksand text-gray-700">Celebrating each other through the years</p>
+                </div>
+            </div>
+            </a>
+
+            <!-- Goofy Card -->
+            <a href="gallery-goofy.html" class="gallery-link">
+            <div class="bg-purple-100 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                <img src="http://static.photos/people/640x360/5" alt="Goofy" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h2 class="font-pixel text-2xl text-purple-700 mb-4">GOOFY</h2>
+                    <p class="font-quicksand text-gray-700">Our most ridiculous and memorable moments</p>
+                </div>
+            </div>
+            </a>
+            <!-- Videos Card -->
+            <a href="gallery-videos.html" class="gallery-link">
+            <div class="bg-red-100 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                <img src="http://static.photos/technology/640x360/6" alt="Videos" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h2 class="font-pixel text-2xl text-red-700 mb-4">VIDEOS</h2>
+                    <p class="font-quicksand text-gray-700">Moving memories that make us smile</p>
+                </div>
+            </div>
+            </a>
+        </div>
+
+        <div class="text-center mt-16">
+            <h2 class="font-quicksand text-2xl md:text-3xl italic text-purple-500">"Pixels may fade, but memories stay bright forever"</h2>
+        </div>
+    </main>
+
+    <custom-footer></custom-footer>
+
+    <script src="components/navbar.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="script.js"></script>
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>

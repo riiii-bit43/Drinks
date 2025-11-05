@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Auth Interface</title>
+
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Supabase v2 -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Pixel Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+    <style>
+        .pixel-font {
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .retro-button {
+            background-color: #DDA0DD;
+            border: 2px solid #000;
+            padding: 1rem 2rem;
+            cursor: pointer;
+            transition: transform 0.1s;
+            box-shadow: 4px 4px 0px 0px #000;
+            width: 100%;
+            border-radius: 0.5rem;
+        }
+
+        .retro-button:hover {
+            transform: translate(1px, 1px);
+            box-shadow: 2px 2px 0px 0px #000;
+        }
+
+        body {
+            height: 100vh;
+            background-color: #333;
+            font-family: "Inter", sans-serif;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center">
+
+    <div id="auth-app" class="p-8 md:p-12 w-11/12 max-w-md bg-white shadow-2xl rounded-xl">
+        <!-- LOGIN VIEW -->
+        <div id="login-view" class="auth-view">
+            <h1 class="pixel-font text-2xl mb-12 text-center">LOG IN</h1>
+            <form onsubmit="handleFormSubmit(event, 'Login')" class="space-y-6">
+                <div>
+                    <input type="email" id="login-email" placeholder="Email" required
+                           class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-black focus:outline-none text-lg">
+                </div>
+                <div>
+                    <input type="password" id="login-password" placeholder="Password" required
+                           class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-black focus:outline-none text-lg">
+                </div>
+                <button type="submit" class="retro-button mt-10">
+                    <span class="pixel-font text-lg text-black">LOGIN</span>
+                </button>
+            </form>
+
+            <p class="text-center mt-6 text-sm">
+                Don’t have an account? 
+                <a href="#" onclick="showView('signup')" class="font-bold underline cursor-pointer hover:text-purple-600">
+                    Sign Up
+                </a>
+            </p>
+        </div>
+
+        <!-- SIGNUP VIEW -->
+        <div id="signup-view" class="auth-view hidden">
+            <h1 class="pixel-font text-2xl mb-12 text-center">SIGN UP</h1>
+            <form onsubmit="handleFormSubmit(event, 'Signup')" class="space-y-6">
+                <div>
+                    <input type="email" id="signup-email" placeholder="Email" required
+                           class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-black focus:outline-none text-lg">
+                </div>
+                <div>
+                    <input type="password" id="signup-password" placeholder="Password" required
+                           class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-black focus:outline-none text-lg">
+                </div>
+                <div>
+                    <input type="password" id="confirm-password" placeholder="Confirm Password" required
+                           class="w-full p-4 border-2 border-gray-300 rounded-lg focus:border-black focus:outline-none text-lg">
+                </div>
+                <button type="submit" class="retro-button mt-10">
+                    <span class="pixel-font text-lg text-black">CREATE ACCOUNT</span>
+                </button>
+            </form>
+
+            <p class="text-center mt-6 text-sm">
+                Already have an account? 
+                <a href="#" onclick="showView('login')" class="font-bold underline cursor-pointer hover:text-purple-600">
+                    Log In
+                </a>
+            </p>
+        </div>
+
+        <!-- Feedback Boxes -->
+        <div id="message-box" class="fixed top-0 left-0 right-0 p-4 text-center bg-green-500 text-white font-bold hidden transition-all duration-300">
+            Success!
+        </div>
+        <div id="error-box" class="fixed top-0 left-0 right-0 p-4 text-center bg-red-500 text-white font-bold hidden transition-all duration-300">
+            Error!
+        </div>
+    </div>
+
+    <script>
+        const { createClient } = supabase;
+        const client = createClient(
+            'https://ubqwiuybjgffeszclegc.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVicXdpdXliamdmZmVzemNsZWdjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEzMDk3MDYsImV4cCI6MjA3Njg4NTcwNn0.Z6RXO47KVmD3cIZuJgXAnME1xIVZ8Dj8iy3CqPJEVg0'
+        );
+
+        async function handleFormSubmit(event, formType) {
+            event.preventDefault();
+            hideMessage();
+
+            const email = document.getElementById(
+                formType === 'Login' ? 'login-email' : 'signup-email'
+            ).value;
+            const password = document.getElementById(
+                formType === 'Login' ? 'login-password' : 'signup-password'
+            ).value;
+
+            if (formType === 'Login') {
+                const { error } = await client.auth.signInWithPassword({ email, password });
+                if (error) {
+                    showMessage('error', `Login Error: ${error.message}`);
+                } else {
+                    showMessage('success', 'Login Successful! Redirecting...');
+                    setTimeout(() => window.location.href = 'forum.html', 1500);
+                }
+            } else if (formType === 'Signup') {
+                const confirmPassword = document.getElementById('confirm-password').value;
+                if (password !== confirmPassword) {
+                    showMessage('error', 'Error: Passwords do not match!');
+                    return;
+                }
+
+                const { error } = await client.auth.signUp({ email, password });
+                if (error) {
+                    showMessage('error', `Signup Error: ${error.message}`);
+                } else {
+                    showMessage('success', 'Account created! Check your email to confirm.');
+                    setTimeout(() => showView('login'), 3000);
+                }
+            }
+        }
+
+        function showView(view) {
+            document.querySelectorAll('.auth-view').forEach(v => v.classList.add('hidden'));
+            document.getElementById(view + '-view').classList.remove('hidden');
+        }
+
+        function showMessage(type, text) {
+            const box = type === 'error'
+                ? document.getElementById('error-box')
+                : document.getElementById('message-box');
+            box.textContent = text;
+            box.classList.remove('hidden');
+            setTimeout(() => box.classList.add('hidden'), 3000);
+        }
+
+        function hideMessage() {
+            document.getElementById('message-box').classList.add('hidden');
+            document.getElementById('error-box').classList.add('hidden');
+        }
+
+        // Auto-show login view & check existing session
+        window.onload = async () => {
+            if (typeof supabase === 'undefined') {
+                console.error("Supabase not loaded. Check script tag.");
+                return;
+            }
+
+            showView('login');
+            const { data } = await client.auth.getSession();
+            if (data.session) {
+                window.location.href = 'forum.html';
+            }
+        };
+    </script>
+</body>
+</html>
