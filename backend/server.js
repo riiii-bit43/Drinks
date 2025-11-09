@@ -1,7 +1,23 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const path = require('path');
+const axios = require('axios');
+const url = "https://retrosip.onrender.com";
 
+const interval = 60000;
+
+function reloadWebsite() {
+  axios
+    .get(url)
+    .then((response) => {
+      // console.log("website reloded");
+    })
+    .catch((error) => {
+      console.error(`Error : ${error.message}`);
+    });
+}
+
+setInterval(reloadWebsite,interval);
 // Load environment variables from .env file
 dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
 
