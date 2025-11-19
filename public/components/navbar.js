@@ -111,7 +111,9 @@ class CustomNavbar extends HTMLElement {
 
         <div class="nav-links">
           <a href="/">HOME</a>
+          <!-- GALLERY LINK COMMENTED OUT
           <a href="gallery.html">GALLERY</a>
+          -->
           <a href="forum.html">FORUM</a>
           <a id="auth-link" href="../auth.html" class="sign-in">SIGN IN</a>
         </div>
